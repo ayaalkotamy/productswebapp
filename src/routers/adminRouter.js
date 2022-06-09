@@ -6,9 +6,8 @@ const adminRouter = express.Router();
 const { MongoClient } = require('mongodb');
 
 const products = require('../data/newProducts.json');
-const users = require('../data/users.json');
 
-adminRouter.route('/addproducts').get((req, res) => {    
+adminRouter.route('/').get((req, res) => {    
 const url = 'mongodb+srv://ayaalkotamy:ayaalkotamy@productswebapp.7iclf.mongodb.net/?retryWrites=true&w=majority';
 const dbName = 'ProductsWebApp';
     (async function mongo(){
@@ -28,26 +27,4 @@ const dbName = 'ProductsWebApp';
     }())
 
 })
-
-adminRouter.route('/addusers').get((req, res) => {
-const url = 'mongodb+srv://ayaalkotamy:ayaalkotamy@productswebapp.7iclf.mongodb.net/?retryWrites=true&w=majority';
-const dbName = 'ProductsWebApp';
-  (async function mongo(){
-        let client;
-        try{
-            client = await MongoClient.connect(url);
-            debug('Connected to mongodb');
-
-            const db= client.db(dbName);
-
-            const response = await db.collection('user').insertMany(users);
-            res.json(response);
-        }
-        catch(error){
-            debug(error.stack);
-        }
-    }())
-
-})
-
 module.exports = adminRouter;

@@ -6,13 +6,13 @@ const debug = require('debug')('app:productsRouter');
 const productsRouter = express.Router();
 const {MongoClient, ObjectID} = require('mongodb');
 
-// productsRouter.use((req, res, next) => {
-//     if(req.user){
-//         next();
-//     } else{
-//         res.redirect('auth/login')
-//     }
-// })
+productsRouter.use((req, res, next) => {
+    if(req.user){
+        next();
+    } else{
+        res.redirect('auth/login')
+    }
+})
 
 
 productsRouter.route('/').get((req, res) => {
